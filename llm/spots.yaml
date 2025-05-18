@@ -1,0 +1,421 @@
+
+- name: 政場駅
+  rank: 1.0
+  coord:
+    x: 1043
+    y: 3080
+  description: マップの中心都市である政場市にあり、近郊列車や南西方向へ向かう特急列車が発着する。
+- name: 政場北駅
+  rank: 0.9
+  coord:
+    x: 1051
+    y: 3000
+  description: 峰狭本線の高速列車が発着する駅
+- name: 政場南駅
+  rank: 0.9
+  coord:
+    x: 1114
+    y: 3013
+  description: 龍宮本線の高速列車が発着する駅
+- name: 政場市役所
+  rank: 1.0
+  coord:
+    x: 1046
+    y: 3049
+  description: 七彩国の中心地である政場市の市役所
+- name: 政場空港
+  rank: 1.0
+  coord:
+    x: 942
+    y: 3103
+  description: 政場市の西側にある空港
+- name: 真戸市役所
+  rank: 0.9
+  coord:
+    x: 4073
+    y: 264
+  description: 真戸市の市役所
+- name: 真戸駅
+  rank: 0.9
+  coord:
+    x: 4085
+    y: 305
+  description: 真戸市の中心駅。南側の町外れにある。
+- name: 真戸空港
+  rank: 0.9
+  coord:
+    x: 4090
+    y: 189
+  description: 真戸市の北側にある空港
+- name: 幌庫駅
+  rank: 0.8
+  coord:
+    x: 3011
+    y: 666
+  description: 幌庫町の中心駅
+- name: 木霊場駅
+  rank: 0.8
+  coord:
+    x: 3694
+    y: 777
+  description: 幌庫町の中心駅
+- name: 神田駅
+  rank: 0.8
+  coord:
+    x: 2739
+    y: 723
+  description: 神田町の中心駅
+- name: 御論駅
+  rank: 0.8
+  coord:
+    x: 2869
+    y: 858
+  description: 御論市の中心駅
+- name: 鞠沙港駅
+  rank: 0.8
+  coord:
+    x: 2081
+    y: 952
+  description: 鞠沙市の中心駅、港も併設する
+- name: 武居駅
+  rank: 0.8
+  coord:
+    x: 1082
+    y: 563
+  description: 武居市の中心駅
+- name: 取鳥駅
+  rank: 0.8
+  coord:
+    x: 1387
+    y: 509
+  description: 取鳥市の中心駅。峰陰本線の支線が伸びている。
+- name: 洞野駅
+  rank: 0.8
+  coord:
+    x: 1505
+    y: 921
+  description: 洞野市の中心駅
+- name: 藤賀駅
+  rank: 0.8
+  coord:
+    x: 839
+    y: 951
+  description: 藤賀町の中心駅
+- name: 波留駅
+  rank: 0.9
+  coord:
+    x: 761
+    y: 1852
+  description: 波留市の中心駅。峰狭本線、峰陰本線、西海本線、保蘇線の接続駅。
+- name: 志城駅
+  rank: 0.8
+  coord:
+    x: 844
+    y: 2313
+  description: 志城町の中心駅
+- name: 迫賀町駅
+  rank: 0.8
+  coord:
+    x: 433
+    y: 2196
+  description: 迫賀市の中心駅
+- name: 萬寿駅
+  rank: 0.9
+  coord:
+    x: 310
+    y: 2663
+  description: 萬寿市の中心駅
+- name: 益根益
+  rank: 0.8
+  coord:
+    x: 307
+    y: 3502
+  description: 益根市の中心駅
+- name: 保蘇駅
+  rank: 0.8
+  coord:
+    x: 1323
+    y: 2178
+  description: 保蘇町の中心駅
+- name: 東城駅
+  rank: 0.8
+  coord:
+    x: 1910
+    y: 2837
+  description: 東城町の中心駅
+- name: 棘和港
+  rank: 0.8
+  coord:
+    x: 2093
+    y: 1532
+  description: 棘和町の中心にある港。各方面への航路が伸びている。
+- name: 宇那駅
+  rank: 0.8
+  coord:
+    x: 2298
+    y: 1852
+  description: 宇那町の中心駅
+- name: 萬賀駅
+  rank: 0.8
+  coord:
+    x: 2927
+    y: 1786
+  description: 萬賀町の中心駅。高速鉄道の終点。
+- name: 龍宮駅
+  rank: 0.9
+  coord:
+    x: 2394
+    y: 2197
+  description: 龍宮市の中心駅。町の西側にある。市街地の各地へ伸びる市電の路線が集結している。
+- name: 龍宮市役所
+  rank: 0.9
+  coord:
+    x: 2435
+    y: 2175
+  description: 龍宮市の市役所
+- name: 諸割市駅
+  rank: 0.8
+  coord:
+    x: 1889
+    y: 2473
+  description: 諸割市の中心駅。中心駅なのに地下鉄は接続されていない。
+- name: 諸割市役所
+  rank: 0.8
+  coord:
+    x: 1916
+    y: 2508
+  description: 諸割市の市役所
+- name: 衣館駅
+  rank: 0.8
+  coord:
+    x: 1665
+    y: 2609
+  description: 衣館町の中心駅
+- name: 衣館港
+  rank: 0.8
+  coord:
+    x: 1728
+    y: 2582
+  description: 衣館町からは離れた場所にあり、貨物船と貨物列車が接続する。
+- name: 東池駅
+  rank: 0.8
+  coord:
+    x: 1764
+    y: 2995
+  description: 東池町の中心駅。駅が出来たのは結構最近。
+- name: 遠津中央駅
+  rank: 0.8
+  coord:
+    x: 1415
+    y: 2983
+  description: 遠津市の中心駅。上下二層構造になっている。
+- name: 遠津口駅
+  rank: 0.7
+  coord:
+    x: 1394
+    y: 2980
+  description: 遠津市の西側にある駅。龍宮本線と剣遠本線(遠津線)の分岐駅。
+- name: 遠野駅
+  rank: 0.8
+  coord:
+    x: 783
+    y: 2780
+  description: 遠津市の南側にある駅。私鉄の西海地方電気鉄道が運行している。
+- name: 春穂駅
+  rank: 0.8
+  coord:
+    x: 983
+    y: 3271
+  description: 春穂町の東側にある駅。埋立地に建設された。
+- name: 刈志村役場
+  rank: 0.8
+  coord:
+    x: 671
+    y: 3600
+  description: 刈志村の役場。県庁所在地が唯一村に置かれている。国鉄バスの刈志線が運行されている。
+- name: 晴場駅
+  rank: 0.8
+  coord:
+    x: 583
+    y: 3853
+  description: 晴場市の中心駅
+- name: 晴場市役所
+  rank: 0.8
+  coord:
+    x: 572
+    y: 3852
+  description: 晴場市の市役所
+- name: 和城駅
+  rank: 0.8
+  coord:
+    x: 851
+    y: 3970
+  description: 和城市の中心駅
+- name: 半頭駅
+  rank: 0.8
+  coord:
+    x: 546
+    y: 4390
+  description: 半頭市の中心駅
+- name: 穂根駅
+  rank: 0.8
+  coord:
+    x: 814
+    y: 4375
+  description: 穂根町の中心駅。和城線の終点。
+- name: 綿骨駅
+  rank: 0.8
+  coord:
+    x: 1049
+    y: 4226
+  description: 綿骨町の中心駅
+- name: 新蛇井駅
+  rank: 0.8
+  coord:
+    x: 1007
+    y: 4668
+  description: 新蛇井市の中心駅
+- name: 真笠中央駅
+  rank: 0.8
+  coord:
+    x: 490
+    y: 4654
+  description: 真笠市の中心駅。高速鉄道の終点でもあり、真笠の玄関口となっている。
+- name: 真笠市役所
+  rank: 0.8
+  coord:
+    x: 469
+    y: 4666
+  description: 真笠市の市役所
+- name: 羅城駅
+  rank: 0.8
+  coord:
+    x: 1500
+    y: 3426
+  description: 羅城町の中心駅
+- name: 湾屈駅
+  rank: 0.8
+  coord:
+    x: 2289
+    y: 3566
+  description: 湾屈町の中心駅
+- name: 湾屈町役場
+  rank: 0.8
+  coord:
+    x: 2313
+    y: 3578
+  description: 湾屈町の役場
+- name: 畝場駅
+  rank: 0.8
+  coord:
+    x: 2199
+    y: 3789
+  description: 畝場市の中心駅
+- name: 剣足駅
+  rank: 0.9
+  coord:
+    x: 2488
+    y: 3922
+  description: 剣足市の中心駅。剣足本線の終点。
+- name: 剣足市役所
+  rank: 0.9
+  coord:
+    x: 2501
+    y: 3892
+  description: 剣足市の市役所
+- name: 剣足空港
+  rank: 0.9
+  coord:
+    x: 2455
+    y: 3794
+  description: 剣足市の北側にある空港
+- name: 惟賀駅
+  rank: 0.8
+  coord:
+    x: 1938
+    y: 4008
+  description: 惟賀町の中心駅
+- name: 子名江駅
+  rank: 0.8
+  coord:
+    x: 2489
+    y: 4158
+  description: 子名江市の中心駅
+- name: 盆花駅
+  rank: 0.8
+  coord:
+    x: 2178
+    y: 4294
+  description: 盆花市の中心駅
+- name: 更賀町役場
+  rank: 0.8
+  coord:
+    x: 3051
+    y: 2195
+  description: 更賀町の役場
+- name: 多良部町役場
+  rank: 0.8
+  coord:
+    x: 3817
+    y: 2371
+  description: 多良部町の役場
+- name: 多良部島空港
+  rank: 0.8
+  coord:
+    x: 4261
+    y: 2406
+  description: 多良部町の東側にある空港
+- name: 武那海峡トンネル
+  rank: 0.8
+  coord:
+    x: 2633
+    y: 4273
+  description: 武那と本島の間にある海峡を通るトンネル。多良部島と本土を結ぶ。
+- name: 武那港
+  rank: 0.8
+  coord:
+    x: 2653
+    y: 4410
+  description: 武那市の中心駅。武那海峡トンネルが出来てからは主ルートから外れた。
+- name: 武那駅
+  rank: 0.8
+  coord:
+    x: 2612
+    y: 4417
+  description: 武那市の南西の町外れにある駅
+- name: 武那町役場
+  rank: 0.8
+  coord:
+    x: 2630
+    y: 4406
+  description: 武那町の役場
+- name: 武頼駅
+  rank: 0.8
+  coord:
+    x: 2603
+    y: 4800
+  description: 武頼市の中心駅。剣足駅までを結ぶ「ムーンライナー」が運行されている。
+- name: 龍宮城
+  rank: 0.8
+  coord:
+    x: 2440
+    y: 2157
+  description: 龍宮市にある城。観光名所でもある。
+- name: 迫賀城
+  rank: 0.8
+  coord:
+    x: 415
+    y: 2152
+  description: 迫賀市にある城。観光名所でもある。
+- name: 萬寿空港
+  rank: 0.8
+  coord:
+    x: 318
+    y: 2742
+  description: 萬寿市の南側にある空港
+- name: 御論城
+  rank: 0.8
+  coord:
+    x: 2880
+    y: 890
+  description: 御論市にある城。観光名所でもある。

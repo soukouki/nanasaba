@@ -1,0 +1,63 @@
+services:
+
+  simutrans-server:
+    build:
+      context: simutrans-server
+      dockerfile: Dockerfile
+    command: ./simutrans/headless-server -objects Pak128.Britain-Ex -server 13353 -debug 2 -server_admin_pw apple
+    volumes:
+      - ./nanasaba1st-body:/simutrans
+    ports:
+      - "13353:13353"
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: "0.7"
+
+  # http://localhost:26524/screenshot?x=1000&y=3000
+  # の形式でアクセスすると、./simutrans-vnc/data/<id>にスクリーンショットが保存される
+  simutrans-vnc:
+    build:
+      context: simutrans-vnc
+      dockerfile: Dockerfile
+    command: /app/start_services.sh
+    ports:
+      - "5901:5900" # VNC
+      - "26524:8080" # screenshot
+    volumes:
+      - ./nanasaba1st-body:/simutrans-ro:ro # 本番に影響が出ないようにread-onlyにする
+      - ./simutrans-vnc:/app
+    restart: unless-stopped
+
+  managebot:
+    build:
+      context: managebot
+      dockerfile: Dockerfile
+    command: managebot/managebot.sh
+    volumes:
+      - ./managebot:/managebot
+      - ./nanasaba1st-body:/simutrans
+      - ./nettool:/nettool
+      - ./simutrans-vnc/data:/data
+      - /var/run/docker.sock:/var/run/docker.sock # Docker in Dockerをする
+    restart: unless-stopped
+
+  # この形式でcurlを叩くと結果が出る。画像のIDは./simutanrs-vnc/data/<id>.pngに保存される
+  # curl http://localhost:49237/chat \
+  # -H "Content-Type: application/json"
+  # -d '{"model": "gemma-3-4b-it-qat", "input": "3000, 4000のスクリーンショットを撮って"}'
+  llm:
+    build:
+      context: llm
+      dockerfile: Dockerfile
+    command: python llm.py
+    ports:
+      - "49237:8000"
+    volumes:
+      - ./llm:/app
+      - /var/run/docker.sock:/var/run/docker.sock # Docker in Dockerをする
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    restart: unless-stopped
+

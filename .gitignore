@@ -1,0 +1,11 @@
+*.log
+*.zip
+nettool
+screens.sh
+__pycache__
+*.lock
+tmp
+.env
+nanasaba1st-*
+simutrans-vnc/data
+*.tar.gz

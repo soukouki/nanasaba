@@ -1,0 +1,12 @@
+langgraph
+langchain
+langchain-openai
+langchain-mcp-adapters
+fastmcp
+
+fastapi
+uvicorn[standard]
+apscheduler
+python-dateutil
+
+pyyaml
