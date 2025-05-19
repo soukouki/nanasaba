@@ -8,7 +8,7 @@ from fastmcp import FastMCP
 mcp = FastMCP("mcp-screenshot")
 
 @mcp.tool()
-async def スクリーンショットの撮影(x: int, y: int, zoomlevel: int, underground: bool = False) -> str:
+async def スクリーンショットの撮影(x: int, y: int, zoomlevel: int = 1, underground: bool = False) -> str:
     """
     Simutransというゲームのスクリーンショットを撮影する。
 
@@ -16,8 +16,8 @@ async def スクリーンショットの撮影(x: int, y: int, zoomlevel: int, u
     zoomlevelは以下のように指定する:
     - 0: ズームイン
     - 1: 標準
-    - 2: ズームアウト
-    - 3: ものすごいズームアウト
+    - 2: ズームアウト(弱め)
+    - 3: ズームアウト(強め)
     underground: 地下を撮影する場合はTrueを指定する
     """
     url = f"http://simutrans-vnc:8080/screenshot"

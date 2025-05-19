@@ -3,18 +3,18 @@ import textwrap
 import asyncio
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.responses import StreamingResponse
-from langchain_openai import ChatOpenAI
 from langchain_mcp_adapters.client import MultiServerMCPClient
 from langgraph.prebuilt import create_react_agent
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.messages import SystemMessage, HumanMessage, AIMessage, ToolMessage
+from langchain_openai import ChatOpenAI
 
 app = FastAPI()
 
 # Constants for LM Studio
 BASE_URL = "http://host.docker.internal:1234/v1"
 DEFAULT_SYSTEM_PROMPT = textwrap.dedent("""
-あなたはSimutransのゲームに関するエージェントです。
+あなたはSimutransというゲームに関するエージェントです。
 「〇〇駅(や役場や空港など)の様子を教えて」という質問に対しては、駅を検索して座標を取得し、座標を確認してからスクリーンショットを撮影してください。
 出力は以下の形式で行ってください。
 
@@ -23,6 +23,8 @@ DEFAULT_SYSTEM_PROMPT = textwrap.dedent("""
 {{"message":"ななさばとは、sou7が運営しているSimutrans Extendedのマルチプレイサーバーです。","images":[]}}
 
 {{"message":"七彩国の中心都市は政場市です。","images":["政場市の画像のID"]}}
+
+{{"message":"政場市にある駅を列挙します。\n1. 政場駅\n2. 政場北駅\n3. 政場東駅","images":[]}}
 """)
 
 async def get_mcp_client() -> MultiServerMCPClient:
@@ -38,6 +40,12 @@ async def get_mcp_client() -> MultiServerMCPClient:
                 "args": ["./mcp-spot.py"],
                 "transport": "stdio",
             },
+            # 「観光名所」で検索してというと、横断検索の方を呼び出してしまうため
+            # "cross-search": {
+            #     "command": "npx",
+            #     "args": ["ts-node", "/scs-mcp-server/src/index.ts"],
+            #     "transport": "stdio",
+            # },
         }
     )
     return client

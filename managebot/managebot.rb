@@ -97,7 +97,7 @@ bot.message(start_with: "!chat") do |event|
           if data['type'] == 'start'
             text += "読み込み終了..."
           elsif data['type'] == 'chunk'
-            text += data['content'] unless data['content'].chomp.empty?
+            text += data['content'].gsub(/\s+/, ' ')
           elsif data['type'] == 'tool_start'
             text += data['name'] + "を実行中..."
           elsif data['type'] == 'tool_end'
@@ -133,9 +133,9 @@ bot.message(start_with: "!chat") do |event|
   rescue JSON::ParserError => e
     puts "JSON parse error: #{e.message}"
     event.respond messages.last['content']
-    return
+    next
   end
-  images = response['images'].sort
+  images = response['images']
   image_files = images.flat_map do |id|
     begin
       [File.open("/data/#{id}.png", 'r')]

@@ -51,6 +51,7 @@ services:
     build:
       context: llm
       dockerfile: Dockerfile
+    working_dir: /app
     command: python llm.py
     ports:
       - "49237:8000"

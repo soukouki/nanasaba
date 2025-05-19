@@ -24,16 +24,6 @@ RUN apt-get update && \
       docker-ce-cli && \
     rm -rf /var/lib/apt/lists/*
 
-# 作業ディレクトリの設定
-WORKDIR /app
-
-# 必要なシステムパッケージのインストール
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    curl \
-    git \
-    build-essential \
-    && rm -rf /var/lib/apt/lists/*
-
 # Pythonのインストール
 RUN apt-get update && apt-get install -y --no-install-recommends \
     python3 \
@@ -47,10 +37,24 @@ RUN python3 -m venv /venv
 # パスを通す（このレイヤーだけでOKなら次行でも良い）
 ENV PATH="/venv/bin:$PATH"
 
-RUN echo 1
-
 # Pythonの依存関係ファイルを追加
 COPY requirements.txt .
-
 # 依存関係のインストール
 RUN pip install --no-cache-dir -qU -r requirements.txt
+
+# npxのインストール
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    npm \
+    && rm -rf /var/lib/apt/lists/*
+
+# 必要なシステムパッケージのインストール
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    curl \
+    git \
+    build-essential \
+    && rm -rf /var/lib/apt/lists/*
+
+# シムトラ横断検索ツールのインストール
+RUN git clone https://github.com/128na/scs-mcp-server.git --depth 1
+RUN cd scs-mcp-server && \
+    npm install

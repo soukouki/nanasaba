@@ -60,19 +60,19 @@ async def スポットの検索(name: str) -> str:
         [spot for spot in spots if spot["name"] == name],
         key=lambda x: x["rank"],
         reverse=True,
-    )[:3]
+    )
     matches = merge_same_spot(matches)
     if len(matches) > 0:
         # name, coord, descriptionを返す
         return json.dumps([{"name": spot["name"], "coord": spot["coord"], "description": spot["description"]} for spot in matches], ensure_ascii=False)
 
     # 部分一致するスポットを検索
-    # rankの高い順に並べ、5件まで表示
+    # rankの高い順に並べ、10件まで表示
     matches = sorted(
         [spot for spot in spots if name in spot["name"]],
         key=lambda x: x["rank"],
         reverse=True,
-    )[:3]
+    )[:10]
     matches = merge_same_spot(matches)
     if len(matches) > 0:
         return json.dumps([{"name": spot["name"], "coord": spot["coord"], "description": spot["description"]} for spot in matches], ensure_ascii=False)
