@@ -15,7 +15,7 @@ services:
         limits:
           cpus: "0.7"
 
-  # http://localhost:26524/screenshot?x=1000&y=3000
+  # http://localhost:26524/screenshot?x=1000&y=3000&zoomlevel=1&underground=0
   # の形式でアクセスすると、./simutrans-vnc/data/<id>にスクリーンショットが保存される
   simutrans-vnc:
     build:
