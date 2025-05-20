@@ -53,6 +53,8 @@ services:
       dockerfile: Dockerfile
     working_dir: /app
     command: python llm.py
+    env_file:
+      - ./llm/.env
     ports:
       - "49237:8000"
     volumes:

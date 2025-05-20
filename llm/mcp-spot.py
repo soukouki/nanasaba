@@ -47,7 +47,7 @@ def merge_same_spot(spots):
     return merged_spots
 
 @mcp.tool()
-async def スポットの検索(name: str) -> str:
+async def search_spot(name: str) -> str:
     """
     Simutransというゲームのスポット(役所・駅・空港など)を検索し、説明と座標を返す。
     """
@@ -102,7 +102,7 @@ async def スポットの検索(name: str) -> str:
     return "スポットが見つかりませんでした。部分文字列など、もう少し広い範囲で検索してみてください。"
 
 @mcp.tool()
-def スポットの登録(name: str, x: int, y: int, description: str) -> str:
+def create_spot(name: str, x: int, y: int, description: str) -> str:
     """
     Simutransというゲームのスポット(役所・駅・空港など)を登録する。
 
@@ -132,7 +132,7 @@ def スポットの登録(name: str, x: int, y: int, description: str) -> str:
     return f"{name}を登録しました。"
 
 @mcp.tool()
-def スポットの修正(name: str, x: int, y: int, description: str) -> str:
+def update_spot(name: str, x: int, y: int, description: str) -> str:
     """
     Simutransというゲームのスポット(役所・駅・空港など)を修正する。
 
@@ -163,7 +163,7 @@ def スポットの修正(name: str, x: int, y: int, description: str) -> str:
     return f"{name}を修正しました。"
 
 @mcp.tool()
-def スポットの削除(name: str) -> str:
+def delete_spot(name: str) -> str:
     """
     Simutransというゲームのスポット(役所・駅・空港など)を削除する。
     """

@@ -63,7 +63,6 @@ bot.message(start_with: "!chat") do |event|
   uri = URI('http://llm:8000/chat')
   headers = { 'Content-Type' => 'application/json' }
   data = {
-    model: 'gemma-3-12b-it-qat',
     input: event.message.content.gsub(/^!chat /, ''),
   }
 

@@ -55,6 +55,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
 # シムトラ横断検索ツールのインストール
-RUN git clone https://github.com/128na/scs-mcp-server.git --depth 1
+RUN git clone https://github.com/soukouki/scs-mcp-server.git --depth 1
 RUN cd scs-mcp-server && \
     npm install

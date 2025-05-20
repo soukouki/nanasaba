@@ -8,7 +8,7 @@ from fastmcp import FastMCP
 mcp = FastMCP("mcp-screenshot")
 
 @mcp.tool()
-async def スクリーンショットの撮影(x: int, y: int, zoomlevel: int = 1, underground: bool = False) -> str:
+async def take_screenshot(x: int, y: int, zoomlevel: int = 1, underground: bool = False) -> bytes:
     """
     Simutransというゲームのスクリーンショットを撮影する。
 

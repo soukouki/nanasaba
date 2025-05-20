@@ -1,3 +1,5 @@
+
+import os
 import json
 import textwrap
 import asyncio
@@ -11,12 +13,22 @@ from langchain_openai import ChatOpenAI
 
 app = FastAPI()
 
-# Constants for LM Studio
-BASE_URL = "http://host.docker.internal:1234/v1"
+# claudeの場合
+BASE_URL = "https://api.anthropic.com/v1/"
+# MODEL_NAME = 'claude-3-haiku-20240307' # びみょい
+MODEL_NAME = 'claude-3-5-haiku-latest' # びみょい
+# MODEL_NAME = "claude-3-7-sonnet-latest" # たかい
+API_KEY = os.getenv("ANTHROPIC_API_KEY")
+
+# LM Studioの場合
+# BASE_URL = "http://host.docker.internal:1234/v1" # LM Studio
+# MODEL_NAME = "gemma-3-12b-it-qat"
+# API_KEY = "dummy" # LM StudioはAPIキー不要
+
 DEFAULT_SYSTEM_PROMPT = textwrap.dedent("""
 あなたはSimutransというゲームに関するエージェントです。
 「〇〇駅(や役場や空港など)の様子を教えて」という質問に対しては、駅を検索して座標を取得し、座標を確認してからスクリーンショットを撮影してください。
-出力は以下の形式で行ってください。
+出力は以下の形式で行ってください。結果だけを出力してください。
 
 {{"message":"〇〇駅の様子です","images":["画像のID1","画像のID2"]}}
 
@@ -40,12 +52,11 @@ async def get_mcp_client() -> MultiServerMCPClient:
                 "args": ["./mcp-spot.py"],
                 "transport": "stdio",
             },
-            # 「観光名所」で検索してというと、横断検索の方を呼び出してしまうため
-            # "cross-search": {
-            #     "command": "npx",
-            #     "args": ["ts-node", "/scs-mcp-server/src/index.ts"],
-            #     "transport": "stdio",
-            # },
+            "cross-search": {
+                "command": "npx",
+                "args": ["ts-node", "/scs-mcp-server/src/index.ts"],
+                "transport": "stdio",
+            },
         }
     )
     return client
@@ -54,17 +65,13 @@ async def get_mcp_client() -> MultiServerMCPClient:
 async def chat_endpoint(request: Request):
     # Parse request JSON
     body = await request.json()
-    model_name = body.get("model")
     user_input = body.get("input")
-
-    if not model_name or not user_input:
-        raise HTTPException(status_code=400, detail="`model` and `input` are required fields.")
 
     # Initialize streaming model
     model = ChatOpenAI(
         base_url=BASE_URL,
-        model_name=model_name,
-        api_key="dummy",
+        model_name=MODEL_NAME,
+        api_key=API_KEY,
         stream_usage=True,
     )
 
