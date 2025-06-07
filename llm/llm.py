@@ -14,29 +14,30 @@ from langchain_openai import ChatOpenAI
 app = FastAPI()
 
 # claudeの場合
-BASE_URL = "https://api.anthropic.com/v1/"
-# MODEL_NAME = 'claude-3-haiku-20240307' # びみょい
-MODEL_NAME = 'claude-3-5-haiku-latest' # びみょい
-# MODEL_NAME = "claude-3-7-sonnet-latest" # たかい
-API_KEY = os.getenv("ANTHROPIC_API_KEY")
+# BASE_URL = "https://api.anthropic.com/v1/"
+# MODEL_NAME = 'claude-3-5-haiku-latest' # まぁまぁ(1呼び出し2円程度)
+# MODEL_NAME = "claude-sonnet-4-0" # たかい(1呼び出し8-10円程度)
+# API_KEY = os.getenv("ANTHROPIC_API_KEY")
 
 # LM Studioの場合
-# BASE_URL = "http://host.docker.internal:1234/v1" # LM Studio
-# MODEL_NAME = "gemma-3-12b-it-qat"
-# API_KEY = "dummy" # LM StudioはAPIキー不要
+BASE_URL = "http://host.docker.internal:1235/v1" # LM Studio
+MODEL_NAME = "gemma-3-27b-it-qat" # そこそこ
+API_KEY = "dummy" # LM StudioはAPIキー不要
 
 DEFAULT_SYSTEM_PROMPT = textwrap.dedent("""
 あなたはSimutransというゲームに関するエージェントです。
 「〇〇駅(や役場や空港など)の様子を教えて」という質問に対しては、駅を検索して座標を取得し、座標を確認してからスクリーンショットを撮影してください。
-出力は以下の形式で行ってください。結果だけを出力してください。
+出力は以下の形式で行ってください。「結果を以下のJSON形式で返します：」のような余計な文言は含めないでください。
 
 {{"message":"〇〇駅の様子です","images":["画像のID1","画像のID2"]}}
 
 {{"message":"ななさばとは、sou7が運営しているSimutrans Extendedのマルチプレイサーバーです。","images":[]}}
 
-{{"message":"七彩国の中心都市は政場市です。","images":["政場市の画像のID"]}}
+{{"message":"七彩国の中心都市は政場市です。\\n以下にスクリーンショットを載せます。","images":["政場市の画像のID"]}}
 
-{{"message":"政場市にある駅を列挙します。\n1. 政場駅\n2. 政場北駅\n3. 政場東駅","images":[]}}
+{{"message":"政場市にある駅を列挙します。\\n1. 政場駅\\n2. 政場北駅\\n3. 政場東駅","images":[]}}
+
+{{"message":"スポットを削除するには、スポットの名前が必要です。名前を教えてください","images":[]}}
 """)
 
 async def get_mcp_client() -> MultiServerMCPClient:
@@ -67,6 +68,8 @@ async def chat_endpoint(request: Request):
     body = await request.json()
     user_input = body.get("input")
 
+    print(f"User input: {user_input}")
+    print(f"Model name: {MODEL_NAME}")
     # Initialize streaming model
     model = ChatOpenAI(
         base_url=BASE_URL,

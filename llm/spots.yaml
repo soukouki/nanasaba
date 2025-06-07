@@ -11,7 +11,7 @@
     x: 1051
     y: 3000
   description: 峰狭本線の高速列車が発着する駅
-- name: 政場南駅
+- name: 政場東駅
   rank: 0.9
   coord:
     x: 1114
