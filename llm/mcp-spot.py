@@ -39,25 +39,26 @@ def merge_same_spot(spots):
             # 既に存在するスポットとマージ
             existing_spot = next(s for s in merged_spots if s["name"] == name)
             existing_spot["rank"] = max(existing_spot["rank"], spot["rank"])
-            # x, y座標は最後のスポットのものを優先
-            existing_spot["coord"]["x"] = spot["coord"]["x"]
-            existing_spot["coord"]["y"] = spot["coord"]["y"]
+            # x, y座標は前のスポットのものを優先 (変更しない)
+            # 説明文は結合する
             existing_spot["description"] += " " + spot["description"]
 
     return merged_spots
 
 @mcp.tool()
-async def search_spot(name: str) -> str:
+async def search_spot(query: str) -> str:
     """
     Simutransというゲームのスポット(役所・駅・空港など)を検索し、説明と座標を返す。
     """
-    if name == "":
+    if query == "":
         return "スポット名を指定してください。"
+
+    queries = query.split(" ") # スペースで分割して複数のキーワードを扱う
 
     # 同じ名前のスポットがある場合
     # rankの高い順に並べ、表示
     matches = sorted(
-        [spot for spot in spots if spot["name"] == name],
+        [spot for spot in spots if spot["name"] == query],
         key=lambda x: x["rank"],
         reverse=True,
     )
@@ -66,10 +67,10 @@ async def search_spot(name: str) -> str:
         # name, coord, descriptionを返す
         return json.dumps([{"name": spot["name"], "coord": spot["coord"], "description": spot["description"]} for spot in matches], ensure_ascii=False)
 
-    # 部分一致するスポットを検索
+    # 全てのクエリに部分一致するスポットを検索
     # rankの高い順に並べ、10件まで表示
     matches = sorted(
-        [spot for spot in spots if name in spot["name"]],
+        [spot for spot in spots if all(query in spot["name"] for query in queries)],
         key=lambda x: x["rank"],
         reverse=True,
     )[:10]
@@ -77,10 +78,21 @@ async def search_spot(name: str) -> str:
     if len(matches) > 0:
         return json.dumps([{"name": spot["name"], "coord": spot["coord"], "description": spot["description"]} for spot in matches], ensure_ascii=False)
 
-    # 文章検索
+    # 1つ以上のクエリに部分一致するスポットを検索
     # rankの高い順に並べ、10件まで表示
     matches = sorted(
-        [spot for spot in spots if name in spot["description"]],
+        [spot for spot in spots if any(query in spot["name"] for query in queries)],
+        key=lambda x: x["rank"],
+        reverse=True,
+    )[:10]
+    matches = merge_same_spot(matches)
+    if len(matches) > 0:
+        return json.dumps([{"name": spot["name"], "coord": spot["coord"], "description": spot["description"]} for spot in matches], ensure_ascii=False)
+
+    # 全てのクエリについて説明文に部分一致するスポットを検索
+    # rankの高い順に並べ、10件まで表示
+    matches = sorted(
+        [spot for spot in spots if all(query in spot["description"] for query in queries)],
         key=lambda x: x["rank"],
         reverse=True,
     )[:10]
@@ -92,8 +104,27 @@ async def search_spot(name: str) -> str:
         result = []
         for spot in matches:
             description = spot["description"]
-            start = max(description.find(name) - 10, 0)
-            end = min(description.find(name) + len(name) + 10, len(description))
+            start = max(description.find(query) - 10, 0)
+            end = min(description.find(query) + len(query) + 10, len(description))
+            match = description[start:end]
+            result.append({"name": spot["name"], "coord": spot["coord"], "match": match})
+        return json.dumps(result, ensure_ascii=False)
+    
+    # 1つ以上のクエリについて説明文に部分一致するスポットを検索
+    matches = sorted(
+        [spot for spot in spots if any(query in spot["description"] for query in queries)],
+        key=lambda x: x["rank"],
+        reverse=True,
+    )[:10]
+    matches = merge_same_spot(matches)
+    if len(matches) > 0:
+        # マッチした文字列の前後のみを表示
+        result = []
+        for spot in matches:
+            description = spot["description"]
+            match = "、".join([query for query in queries if query in description])
+            start = max(description.find(match) - 10, 0)
+            end = min(description.find(match) + len(match) + 10, len(description))
             match = description[start:end]
             result.append({"name": spot["name"], "coord": spot["coord"], "match": match})
         return json.dumps(result, ensure_ascii=False)

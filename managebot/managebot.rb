@@ -92,7 +92,12 @@ bot.message(start_with: "!chat") do |event|
           puts line.strip unless line.strip.empty?
           STDOUT.flush
 
-          data = JSON.parse(line)
+          begin
+            data = JSON.parse(line)
+          rescue JSON::ParserError => e
+            puts "JSON parse error: #{e.message}"
+            next
+          end
           if data['type'] == 'start'
             text += "読み込み終了..."
           elsif data['type'] == 'chunk'
@@ -128,10 +133,16 @@ bot.message(start_with: "!chat") do |event|
   STDOUT.flush
 
   begin
-    response = JSON.parse(messages.last['content'])
+    # <result>...</result>の間にあるJSONをパースする
+    body = messages.last['content'].match(/<result>(.*?)<\/result>/m)
+    if body.nil? || body[1].nil?
+      response = JSON.parse(messages.last['content']) # <result>タグがないので、とりあえずそのままパース
+    else
+      response = JSON.parse(body[1]) # <result>タグの中身をパース
+    end
   rescue JSON::ParserError => e
     puts "JSON parse error: #{e.message}"
-    event.respond messages.last['content']
+    event.respond messages.last['content'] # パースできなかった場合はそのまま表示する
     next
   end
   images = response['images']
